@@ -41,7 +41,13 @@ const Navbar = () => {
 						</Button>
 					</div>
 				) : (
-					<div></div>
+					<Button
+						// component={Link}
+						// to='/auth'
+						variant='contained'
+						color='primary'>
+						Sign in
+					</Button>
 				)}
 			</Toolbar>
 		</AppBar>
