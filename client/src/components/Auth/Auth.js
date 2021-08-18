@@ -94,6 +94,14 @@ const Auth = () => {
 							/>
 						)}
 					</Grid>
+					<Button
+						type='submit'
+						fullWidth
+						variant='contained'
+						color='primary'
+						className={classes.submit}>
+						{isSignup ? "Sign Up" : "Sign In"}
+					</Button>
 					<GoogleLogin
 						clientId='247661976374-k2v13j26d7hjncp2oj77fva2nri3u33b.apps.googleusercontent.com'
 						render={(renderProps) => (
@@ -105,21 +113,13 @@ const Auth = () => {
 								disabled={renderProps.disabled}
 								startIcon={<Icon />}
 								variant='contained'>
-								Google Sign In
+								Sign In With Google
 							</Button>
 						)}
 						onSuccess={googleSuccess}
 						onFailure={googleError}
 						cookiePolicy='single_host_origin'
 					/>
-					<Button
-						type='submit'
-						fullWidth
-						variant='contained'
-						color='primary'
-						className={classes.submit}>
-						{isSignup ? "Sign Up" : "Sign In"}
-					</Button>
 					<Grid container justify='flex-end'>
 						<Grid item>
 							<Button onClick={switchMode}>
