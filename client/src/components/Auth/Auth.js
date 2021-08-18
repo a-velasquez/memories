@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useDispatch } from "react-redux"
 import Input from "./Input"
 import {
 	Avatar,
@@ -23,6 +24,7 @@ const initialState = {
 
 const Auth = () => {
 	const classes = useStyles()
+	const dispatch = useDispatch()
 	const [isSignup, setIsSignup] = useState(true)
 	const [form, setForm] = useState(initialState)
 	const [showPassword, setShowPassword] = useState(false)
@@ -39,8 +41,16 @@ const Auth = () => {
 
 	const handleChange = () => {}
 
-	const googleSuccess = (res) => {
-		console.log(res)
+	const googleSuccess = async (res) => {
+		const result = res?.profileObj
+		const token = res?.tokenId
+
+		try {
+			dispatch({ type: "AUTH", data: { result, token } })
+		} catch (error) {
+			console.log(error)
+		}
+		console.log(result)
 	}
 
 	const googleError = () =>
