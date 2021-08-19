@@ -39,9 +39,14 @@ const Auth = () => {
 		setShowPassword(false)
 	}
 
-	const handleSubmit = () => {}
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		console.log(form)
+	}
 
-	const handleChange = () => {}
+	const handleChange = (e) => {
+		setForm({ ...form, [e.target.name]: e.target.value })
+	}
 
 	const googleSuccess = async (res) => {
 		const result = res?.profileObj
