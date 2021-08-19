@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
 import Input from "./Input"
 import {
 	Avatar,
@@ -28,6 +29,7 @@ const Auth = () => {
 	const [isSignup, setIsSignup] = useState(true)
 	const [form, setForm] = useState(initialState)
 	const [showPassword, setShowPassword] = useState(false)
+	const history = useHistory()
 
 	const handleShowPassword = () => setShowPassword(!showPassword)
 
@@ -47,6 +49,7 @@ const Auth = () => {
 
 		try {
 			dispatch({ type: "AUTH", data: { result, token } })
+			history.push("/")
 		} catch (error) {
 			console.log(error)
 		}
