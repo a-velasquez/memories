@@ -50,7 +50,6 @@ const Auth = () => {
 		} catch (error) {
 			console.log(error)
 		}
-		console.log(result)
 	}
 
 	const googleError = () =>
