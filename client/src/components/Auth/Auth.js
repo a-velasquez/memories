@@ -12,6 +12,8 @@ import {
 } from "@material-ui/core"
 import { GoogleLogin } from "react-google-login"
 import Icon from "./icon"
+import { signup, signin } from "../../actions/auth"
+import { AUTH } from "../../constants/actionTypes"
 import useStyles from "./styles"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 
@@ -41,7 +43,12 @@ const Auth = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		console.log(form)
+
+		if (isSignup) {
+			dispatch(signup(form, history))
+		} else {
+			dispatch(signin(form, history))
+		}
 	}
 
 	const handleChange = (e) => {
@@ -53,7 +60,7 @@ const Auth = () => {
 		const token = res?.tokenId
 
 		try {
-			dispatch({ type: "AUTH", data: { result, token } })
+			dispatch({ type: AUTH, data: { result, token } })
 			history.push("/")
 		} catch (error) {
 			console.log(error)
@@ -137,7 +144,7 @@ const Auth = () => {
 						onFailure={googleError}
 						cookiePolicy='single_host_origin'
 					/>
-					<Grid container justify='flex-end'>
+					<Grid container justifyContent='flex-end'>
 						<Grid item>
 							<Button onClick={switchMode}>
 								{isSignup
