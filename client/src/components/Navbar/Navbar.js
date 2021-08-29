@@ -48,7 +48,7 @@ const Navbar = () => {
 							{user.result.name}
 						</Typography>
 						<Button
-							variant='containe'
+							variant='contained'
 							className={classes.logout}
 							color='secondary'
 							onClick={logout}>
