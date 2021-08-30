@@ -1,14 +1,16 @@
 import axios from "axios"
 
-// backend url
-const url = "https://memories-project-000.herokuapp.com/posts"
+const API = axios.create({ baseURL: "http://localhost:5000" })
 
-export const fetchPosts = () => axios.get(url)
-export const createPost = (newPost) => axios.post(url, newPost)
+// // backend url
+// const url = "https://memories-project-000.herokuapp.com/posts"
+
+export const fetchPosts = () => API.get("/posts")
+export const createPost = (newPost) => API.post("/posts", newPost)
 export const updatePost = (id, updatedPost) =>
-	axios.patch(`${url}/${id}`, updatedPost)
-export const deletePost = (id) => axios.delete(`${url}/${id}`)
-export const likePost = (id) => axios.patch(`${url}/${id}/likePost`)
+	API.patch(`/posts/${id}`, updatedPost)
+export const deletePost = (id) => API.delete(`/posts/${id}`)
+export const likePost = (id) => API.patch(`/posts/${id}/likePost`)
 
-export const signIn = (formData) => axios.post("/user/signin", formData)
-export const signUp = (formData) => axios.post("/user/signup", formData)
+export const signIn = (form) => API.post("/user/signin", form)
+export const signUp = (form) => API.post("/user/signup", form)
