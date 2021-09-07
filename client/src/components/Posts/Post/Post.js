@@ -1,5 +1,4 @@
 import React from "react"
-import useStyles from "./styles"
 import {
 	Card,
 	CardActions,
@@ -7,22 +6,24 @@ import {
 	CardMedia,
 	Button,
 	Typography
-} from "@material-ui/core"
+} from "@material-ui/core/"
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt"
-import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined"
 import DeleteIcon from "@material-ui/icons/Delete"
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz"
-import moment from "moment"
+import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined"
 import { useDispatch } from "react-redux"
-import { deletePost, likePost } from "../../../actions/posts"
+import moment from "moment"
+
+import { likePost, deletePost } from "../../../actions/posts"
+import useStyles from "./styles"
 
 const Post = ({ post, setCurrentId }) => {
-	const classes = useStyles()
 	const dispatch = useDispatch()
+	const classes = useStyles()
 	const user = JSON.parse(localStorage.getItem("profile"))
 
 	const Likes = () => {
-		if (post.likes.length > 0) {
+		if (post?.likes?.length > 0) {
 			return post.likes.find(
 				(like) => like === (user?.result?.googleId || user?.result?._id)
 			) ? (
@@ -53,7 +54,10 @@ const Post = ({ post, setCurrentId }) => {
 		<Card className={classes.card}>
 			<CardMedia
 				className={classes.media}
-				image={post.selectedFile}
+				image={
+					post.selectedFile ||
+					"https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
+				}
 				title={post.title}
 			/>
 			<div className={classes.overlay}>
@@ -78,7 +82,11 @@ const Post = ({ post, setCurrentId }) => {
 					{post.tags.map((tag) => `#${tag} `)}
 				</Typography>
 			</div>
-			<Typography className={classes.title} variant='h5' gutterBottom>
+			<Typography
+				className={classes.title}
+				gutterBottom
+				variant='h5'
+				component='h2'>
 				{post.title}
 			</Typography>
 			<CardContent>
