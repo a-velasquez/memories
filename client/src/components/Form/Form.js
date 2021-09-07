@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react"
 import { TextField, Button, Typography, Paper } from "@material-ui/core"
 import { useDispatch, useSelector } from "react-redux"
 import FileBase from "react-file-base64"
-import useStyles from "./styles"
+
 import { createPost, updatePost } from "../../actions/posts"
+import useStyles from "./styles"
 
 const Form = ({ currentId, setCurrentId }) => {
 	const [postData, setPostData] = useState({
@@ -15,15 +16,20 @@ const Form = ({ currentId, setCurrentId }) => {
 	const post = useSelector((state) =>
 		currentId ? state.posts.find((message) => message._id === currentId) : null
 	)
-	const classes = useStyles()
 	const dispatch = useDispatch()
+	const classes = useStyles()
 	const user = JSON.parse(localStorage.getItem("profile"))
 
 	useEffect(() => {
 		if (post) setPostData(post)
 	}, [post])
 
-	const handleSubmit = (e) => {
+	const clear = () => {
+		setCurrentId(0)
+		setPostData({ title: "", message: "", tags: "", selectedFile: "" })
+	}
+
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		if (currentId === 0) {
@@ -33,16 +39,6 @@ const Form = ({ currentId, setCurrentId }) => {
 			dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }))
 			clear()
 		}
-	}
-
-	const clear = () => {
-		setCurrentId(null)
-		setPostData({
-			title: "",
-			message: "",
-			tags: "",
-			selectedFile: ""
-		})
 	}
 
 	if (!user?.result?.name) {
@@ -63,7 +59,7 @@ const Form = ({ currentId, setCurrentId }) => {
 				className={`${classes.root} ${classes.form}`}
 				onSubmit={handleSubmit}>
 				<Typography variant='h6'>
-					{currentId ? "Editing" : "Creating"} a Memory
+					{currentId ? `Editing "${post.title}"` : "Creating a Memory"}
 				</Typography>
 				<TextField
 					name='title'
@@ -78,6 +74,8 @@ const Form = ({ currentId, setCurrentId }) => {
 					variant='outlined'
 					label='Message'
 					fullWidth
+					multiline
+					rows={4}
 					value={postData.message}
 					onChange={(e) =>
 						setPostData({ ...postData, message: e.target.value })
