@@ -6,7 +6,6 @@ import { getPosts } from "../../actions/posts"
 import Pagination from "../Pagination"
 import Posts from "../Posts/Posts"
 import Form from "../Form/Form"
-import { mergeClasses } from "@material-ui/styles"
 
 const Home = () => {
 	const [currentId, setCurrentId] = useState(0)
