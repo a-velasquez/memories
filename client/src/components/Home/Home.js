@@ -15,10 +15,20 @@ import { getPosts } from "../../actions/posts"
 import Pagination from "../Pagination"
 import Posts from "../Posts/Posts"
 import Form from "../Form/Form"
+import useStyles from "./styles"
+
+function useQuery() {
+	return new URLSearchParams(useLocation().search)
+}
 
 const Home = () => {
 	const [currentId, setCurrentId] = useState(0)
 	const dispatch = useDispatch()
+	const query = useQuery()
+	const history = useHistory()
+	const page = query.get("page") || 1
+	const searchQuery = query.get("searchQuery")
+	const classes = useStyles()
 
 	useEffect(() => {
 		dispatch(getPosts())
@@ -26,16 +36,17 @@ const Home = () => {
 
 	return (
 		<Grow in>
-			<Container>
+			<Container maxWidth='xl'>
 				<Grid
 					container
 					justifyContent='space-between'
 					alignItems='stretch'
-					spacing={3}>
-					<Grid item xs={12} sm={7}>
+					spacing={3}
+					className={classes.gridContainer}>
+					<Grid item xs={12} sm={6} md={9}>
 						<Posts setCurrentId={setCurrentId} />
 					</Grid>
-					<Grid item xs={12} sm={4}>
+					<Grid item xs={12} sm={6} md={3}>
 						<Form currentId={currentId} setCurrentId={setCurrentId} />
 						<Paper elevation={6}>
 							<Pagination />
