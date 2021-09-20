@@ -23,6 +23,8 @@ function useQuery() {
 
 const Home = () => {
 	const [currentId, setCurrentId] = useState(0)
+	const [search, setSearch] = useState("")
+	const [tags, setTags] = useState([])
 	const dispatch = useDispatch()
 	const query = useQuery()
 	const history = useHistory()
