@@ -37,11 +37,6 @@ const Home = () => {
 		dispatch(getPosts())
 	}, [currentId, dispatch])
 
-	const handleKeyPress = (e) => {
-		if (e.keyCode === 13) {
-		}
-	}
-
 	const searchPost = () => {
 		if (search.trim() || tags) {
 			dispatch(getPostsBySearch({ search, tags: tags.join(",") }))
@@ -50,6 +45,12 @@ const Home = () => {
 			)
 		} else {
 			history.push("/")
+		}
+	}
+
+	const handleKeyPress = (e) => {
+		if (e.keyCode === 13) {
+			searchPost()
 		}
 	}
 
